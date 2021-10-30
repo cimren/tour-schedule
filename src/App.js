@@ -2,23 +2,24 @@ import React from "react";
 import axios from "axios";
 import "./styles.scss";
 
-export default class App extends React.Component {
-  state = {
-    employees: [],
-  };
-
-  componentDidMount() {
-    axios.get('/employees').then((response) => {
-      this.setState({ employees: response.data });
-    }); 
-  }
-
-  render() {
-    const { employees } = this.state;
-    return (
-      <div>
+function App() {
+  let [employees, setEmployees] = React.useState('');
+  const fetchData = React.useCallback(() => {
+    axios.get('/employees')
+    .then((response) => {
+      setEmployees(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }, []);
+  React.useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+  return (
+    <div>
         <ul className="employees">
-          {employees.map((employee) => (
+          {employees && employees.map((employee) => (
             <li className="employee">
                <p>
                 <strong>Id:</strong> {employee.id}
@@ -30,6 +31,6 @@ export default class App extends React.Component {
           ))}
         </ul>
       </div>
-    );
-  }
+  );
 }
+export default App;

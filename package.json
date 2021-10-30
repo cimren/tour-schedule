@@ -1,13 +1,13 @@
 {
   "name": "tour-schedule",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "A simple calender application where a tour operator can see schedules of his employees.",
+  "main": "server/index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "npm run build && node server.js",
+    "start": "npm run build && node server/index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "server": "nodemon --watch server.js",
+    "server": "nodemon --watch server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "jest"
   },
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
     "axios": "^0.24.0",
@@ -30,6 +31,7 @@
     "concurrently": "^6.3.0",
     "css-loader": "^6.5.0",
     "eslint": "^8.1.0",
+    "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "html-webpack-plugin": "^5.5.0",
