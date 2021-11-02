@@ -1,6 +1,6 @@
 # tour-schedule
 
-A simple calender application where a tour operator can see schedules of his employees.
+A simple calender application where a tour operator can see schedules of his employees. This is project is built with React.js and Node.js 
 
 ## Building and running on localhost
 
@@ -15,6 +15,7 @@ To run in hot module reloading mode:
 ```sh
 npm run dev
 ```
+This command will automatically open http://localhost:3000 in the browser
 
 To create a production build:
 
@@ -36,4 +37,12 @@ To run unit tests:
 
 ```sh
 npm test
+```
+
+## Storybook
+
+You can browse the components and test with different use cases in storybook by running
+
+```sh
+npm run storybook
 ```

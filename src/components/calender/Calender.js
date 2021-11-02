@@ -2,13 +2,15 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "./calender.scss";
 
-export const Calender = ({tours}) => {
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+export const Calender = ({tours, employees}) => {
+  const colors = ['#7bc74d', '#7cd2e3', '#d46a6a', '#f9f871', '#b0a8b9', '#ff8066'],
+        days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         DAYS_OF_WEEK = days.length,
         HOUR_IN_SEC = 3600, // Hour in seconds
         CALENDER_START_TIME = 9 * HOUR_IN_SEC, // Calender starts from 9
         MAX_TIME_SLOT = 8 //From 9 to 17               
 
+  //sort the tours array in order to place faster into the calender 
   tours.sort((a, b) => {return a.startTime - b.startTime || a.day - b.day})       
 
   const createTable = () => {
@@ -59,36 +61,42 @@ export const Calender = ({tours}) => {
 
   const createEmployeeBoxes = (scheduledTours) => {
     let employeeBoxes = [],
-        length = scheduledTours.length,
-        colors = ['#7bc74d', '#7cd2e3']
+        length = scheduledTours.length        
     
     if(length > 2){
       length = 2
     }        
     
     scheduledTours.forEach((scheduledTour, index)=>{
-      let {id, duration, position} = scheduledTour
+      let {id, duration, position} = scheduledTour   
+      const {name, color} = getEmployeeInfo(id)         
       
-      if(duration == null){
-        duration = 3600
-      }
-      
-      if(duration && index < length){
-        //const boxHeight = (duration / HOUR_IN_SEC) * 100
+      if(duration && index < length){        
         const boxPosition = position * 60
         const boxWidth = 100 / length
-        const boxStyle = {
-          //height: boxHeight + '%',
+        const boxStyle = {          
           width: boxWidth + '%',
-          backgroundColor: colors[index],
+          backgroundColor: color,
           marginTop: boxPosition + 'px'
         }          
-        employeeBoxes.push( <div className="employee-box" style={boxStyle}>Employee</div> )
+        employeeBoxes.push( <div className="employee-box" style={boxStyle}>{name}</div> )
       }        
     })       
         
     return employeeBoxes
   } 
+
+  const getEmployeeInfo = (id) => {
+    let index = employees.findIndex(employee => employee.value == id)
+    const employee = index > 0 && employees[index]    
+    if(index >= colors.length){
+      index = 0;
+    }
+    return {
+      name: employee ? employee.text : 'Unnamed Employee',
+      color: colors[index] 
+    }    
+  }  
 
   return (
     <div className="calender">     
@@ -110,4 +118,5 @@ export const Calender = ({tours}) => {
 
 Calender.propTypes = { 
   tours: PropTypes.array,
+  employees: PropTypes.array,
 }

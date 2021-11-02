@@ -4,7 +4,7 @@ import { Dropdown } from "../../components/dropdown/Dropdown";
 import { Calender } from "../../components/calender/Calender";
 import "./styles.scss";
 
-export const HomePage = () => {
+export const HomePage = React.memo(() => {
   const [selectedEmployee, setSelectedEmployee] = useState("")
   const  [employees, setEmployees] = useState([])
   const  [tours, setTours] = useState([])
@@ -25,15 +25,14 @@ export const HomePage = () => {
       newEmployees.unshift({value:"", text:"All Employees"})
       setEmployees(newEmployees)      
     })
-    .catch((error) => {
-      console.log(error)
+    .catch((error) => {      
       setEmployees([])
     })
   }, [])
   
-  useEffect(() => {
-    getEmployees()
-  }, [getEmployees]) 
+  useEffect(() => {    
+    getEmployees()        
+  }, []) 
 
   const getTours = useCallback(() => {
     let url = '/tours';
@@ -45,21 +44,19 @@ export const HomePage = () => {
     .then((response) => {      
       setTours(response.data)
     })
-    .catch((error) => {
-      console.log(error)
+    .catch(() => {      
       setTours([])
     })
-  }, []) 
+  }, [selectedEmployee, employees]) 
   
   useEffect(() => {
-    getTours();
-  }, [selectedEmployee])
+    getTours()    
+  }, [selectedEmployee, employees])
   
   return (
     <div>
-        <Dropdown label={'Employee: '} options={employees} onChange={handleOnChange}/>
-        <p>Selected Employee: {selectedEmployee}</p>
-        <Calender tours={tours}/>
+        <Dropdown class="dropdown" label={'Employee: '} options={employees} onChange={handleOnChange}/>        
+        <Calender tours={tours} employees={employees}/>
     </div>
   );
-}
+})
