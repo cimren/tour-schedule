@@ -1,6 +1,6 @@
 # tour-schedule
 
-A simple calender application where a tour operator can see schedules of his employees. This is project is built with React.js and Node.js 
+A simple calender application where a tour operator can see schedules of his employees. This project is built with React.js and Node.js 
 
 ## Building and running on localhost
 
