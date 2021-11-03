@@ -46,3 +46,4 @@ You can browse the components and test with different use cases in storybook by 
 ```sh
 npm run storybook
 ```
+This command will open another window on the browser with 6006 port

@@ -7,7 +7,7 @@ export const Dropdown = ({label, options, onChange}) => {
   return (
     <div className="dropdown">
         <label className="label">{label}</label>
-        <select onChange={(e) => onChange(e.currentTarget.value)}>          
+        <select onChange={(e) => onChange(e.currentTarget.value)} data-testid="select-component">          
           {            
             options && options.map((item, index) => (
               <option key={index} value={item.value}>
