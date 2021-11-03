@@ -15,7 +15,7 @@ describe ('Test Dropdown component', () => {
     expect(label).toBeTruthy();
   });
 
-  it('should call onChange when the first option is selected', async () => {
+  it('should display correct value when option is selected', async () => {
     const mockedOnChange = jest.fn();
     const { queryByTestId } = render(<Dropdown 
         options={mockedOptions} 
